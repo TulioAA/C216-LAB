@@ -5,25 +5,28 @@ UVICORN := poetry run uvicorn
 RUFF := poetry run ruff
 
 help:
-	@echo "Comandos disponíveis:"
-	@echo "  make install  - instala dependências"
-	@echo "  make test     - executa testes"
-	@echo "  make lint     - verifica o código"
-	@echo "  make format   - formata o código"
-	@echo "  make run      - inicia o servidor"
-	@echo "  make clean    - remove arquivos temporários"
+    @echo "Comandos disponíveis:"
+    @echo "  make install  - instala dependências"
+    @echo "  make test     - executa testes"
+    @echo "  make lint     - verifica o código"
+    @echo "  make format   - formata o código"
+    @echo "  make run      - inicia o servidor"
+    @echo "  make clean    - remove arquivos temporários"
 
 install:
-	poetry install
+    poetry install
 
 test:
-	$(PYTEST)
+    $(PYTEST)
 
 lint:
-	$(RUFF) check .
+    $(RUFF) check .
 
 format:
-	$(RUFF) format .
+    $(RUFF) format .
 
 run:
-	$(UVICORN) app.main:app --reload
+    $(UVICORN) backend.main:app --reload
+
+clean:
+    rm -rf __pycache__ .pytest_cache .ruff_cache
