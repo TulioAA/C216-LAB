@@ -1,32 +1,28 @@
-.PHONY: help install test lint format run clean
+.PHONY: install test lint format run help
 
-PYTEST := poetry run pytest
-UVICORN := poetry run uvicorn
-RUFF := poetry run ruff
-
-help:
-    @echo "Comandos disponíveis:"
-    @echo "  make install  - instala dependências"
-    @echo "  make test     - executa testes"
-    @echo "  make lint     - verifica o código"
-    @echo "  make format   - formata o código"
-    @echo "  make run      - inicia o servidor"
-    @echo "  make clean    - remove arquivos temporários"
+BACKEND := cd backend
+POETRY := $(BACKEND) && poetry run
+PYTEST := $(POETRY) pytest
 
 install:
-    poetry install
+	$(BACKEND) && poetry install
 
 test:
-    $(PYTEST)
+	$(PYTEST)
 
 lint:
-    $(RUFF) check .
+	$(POETRY) ruff check .
 
 format:
-    $(RUFF) format .
+	$(POETRY) ruff format .
 
 run:
-    $(UVICORN) backend.main:app --reload
+	$(POETRY) uvicorn src.app.main:app --reload
 
-clean:
-    rm -rf __pycache__ .pytest_cache .ruff_cache
+help:
+	@echo "Comandos disponíveis:"
+	@echo "  make install  - instala dependências"
+	@echo "  make test     - executa testes"
+	@echo "  make lint     - verifica código"
+	@echo "  make format   - formata código"
+	@echo "  make run      - inicia servidor"
