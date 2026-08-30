@@ -17,7 +17,22 @@ format:
 	$(POETRY) ruff format .
 
 run:
-	$(POETRY) uvicorn src.app.main:app --reload
+	$(POETRY) uvicorn app.main:app --reload
+
+build:
+	docker compose build
+
+up:
+	docker compose up -d
+
+down:
+	docker compose down
+
+logs:
+	docker compose logs -f
+
+ps:
+	docker compose ps
 
 help:
 	@echo "Comandos disponíveis:"

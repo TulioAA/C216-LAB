@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["TulioAA <tulioalmeida67@gmail.com>"]
 license = "MIT"
+packages = [
+    { include = "app" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.12"
