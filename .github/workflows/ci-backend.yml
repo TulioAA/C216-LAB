@@ -17,9 +17,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd Backend
           pip install poetry
           poetry install
 
       - name: Run tests
-        run: cd Backend && poetry run pytest --cov=app --cov-report=term-missing
-
+        run: |
+          cd Backend
+          poetry run pytest --cov=app --cov-report=term-missing
