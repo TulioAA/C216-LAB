@@ -10,6 +10,9 @@ install:
 test:
 	$(PYTEST)
 
+coverage:
+	$(PYTEST) --cov=app --cov-report=term-missing
+
 lint:
 	$(POETRY) ruff check .
 
@@ -38,6 +41,12 @@ help:
 	@echo "Comandos disponíveis:"
 	@echo "  make install  - instala dependências"
 	@echo "  make test     - executa testes"
-	@echo "  make lint     - verifica código"
-	@echo "  make format   - formata código"
-	@echo "  make run      - inicia servidor"
+	@echo "  make coverage  - executa testes com cobertura"
+	@echo "  make lint      - verifica código"
+	@echo "  make format    - formata código"
+	@echo "  make run       - inicia servidor"
+	@echo "  make build     - build docker"
+	@echo "  make up        - sobe containers"
+	@echo "  make down      - derruba containers"
+	@echo "  make logs      - mostra logs"
+	@echo "  make ps        - lista containers"

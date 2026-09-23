@@ -1,0 +1,27 @@
+name: CI Backend
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          cd Backend
+          pip install poetry
+          poetry install
+
+      - name: Run tests
+        run: |
+          cd Backend
+          poetry run pytest --cov=app --cov-report=term-missing
