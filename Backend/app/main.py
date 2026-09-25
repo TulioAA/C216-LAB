@@ -1,11 +1,5 @@
 from fastapi import FastAPI
+from app.api.routes import router
 
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Backend funcionando"}
-
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+app = FastAPI(title="Prática 4 API")
+app.include_router(router)
