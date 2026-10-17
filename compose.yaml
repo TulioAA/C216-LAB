@@ -3,6 +3,7 @@ services:
     build:
       context: ./Backend
       dockerfile: Dockerfile
+    working_dir: /app
     ports:
       - "8000:8000"
     depends_on:
@@ -16,6 +17,8 @@ services:
       POSTGRES_PASSWORD: app
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
   postgres_data:

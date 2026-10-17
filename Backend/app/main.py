@@ -1,11 +1,10 @@
 from fastapi import FastAPI
+from app.api import items
 
 app = FastAPI()
 
 @app.get("/")
-def read_root():
-    return {"message": "Backend funcionando"}
+def root():
+    return {"message": "API rodando!"}
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+app.include_router(items.router)
