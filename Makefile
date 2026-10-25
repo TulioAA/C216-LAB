@@ -1,6 +1,10 @@
-.PHONY: install test lint format run help
+.PHONY: install test coverage lint format run build up down logs ps help \
+frontend-install frontend-lint frontend-format frontend-build \
+frontend-test frontend-test-e2e check-all
 
 BACKEND := cd backend
+FRONTEND := cd frontend
+
 POETRY := $(BACKEND) && poetry run
 PYTEST := $(POETRY) pytest
 
@@ -37,16 +41,62 @@ logs:
 ps:
 	docker compose ps
 
+# =====================
+# FRONTEND
+# =====================
+
+frontend-install:
+	$(FRONTEND) && npm install
+
+frontend-lint:
+	$(FRONTEND) && npm run lint
+
+frontend-format:
+	$(FRONTEND) && npm run format
+
+frontend-build:
+	$(FRONTEND) && npm run build
+
+frontend-test:
+	$(FRONTEND) && npm run test
+
+frontend-test-e2e:
+	$(FRONTEND) && npm run test:e2e
+
+# =====================
+# CHECK GERAL
+# =====================
+
+check-all:
+	make lint
+	make test
+	make frontend-lint
+	make frontend-test
+	make frontend-build
+
 help:
-	@echo "Comandos disponíveis:"
-	@echo "  make install  - instala dependências"
-	@echo "  make test     - executa testes"
-	@echo "  make coverage  - executa testes com cobertura"
-	@echo "  make lint      - verifica código"
-	@echo "  make format    - formata código"
-	@echo "  make run       - inicia servidor"
-	@echo "  make build     - build docker"
-	@echo "  make up        - sobe containers"
-	@echo "  make down      - derruba containers"
-	@echo "  make logs      - mostra logs"
-	@echo "  make ps        - lista containers"
+	@echo "=== BACKEND ==="
+	@echo "make install"
+	@echo "make test"
+	@echo "make coverage"
+	@echo "make lint"
+	@echo "make format"
+	@echo "make run"
+	@echo ""
+	@echo "=== DOCKER ==="
+	@echo "make build"
+	@echo "make up"
+	@echo "make down"
+	@echo "make logs"
+	@echo "make ps"
+	@echo ""
+	@echo "=== FRONTEND ==="
+	@echo "make frontend-install"
+	@echo "make frontend-lint"
+	@echo "make frontend-format"
+	@echo "make frontend-build"
+	@echo "make frontend-test"
+	@echo "make frontend-test-e2e"
+	@echo ""
+	@echo "=== GERAL ==="
+	@echo "make check-all"
