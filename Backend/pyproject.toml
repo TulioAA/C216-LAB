@@ -12,6 +12,9 @@ packages = [
 python = ">=3.12"
 fastapi = ">=0.141.1,<0.142.0"
 uvicorn = ">=0.52.1,<0.53.0"
+sqlalchemy = "^2.1.4"
+psycopg = {extras = ["binary"], version = "^3.3.6"}
+alembic = "^1.13.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=9.1.1,<10.0.0"
