@@ -6,10 +6,20 @@ from sqlalchemy.orm import sessionmaker
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+psycopg://app:app@db:5432/app",
+    "sqlite:///./test.db",
 )
 
-engine = create_engine(DATABASE_URL)
+connect_args = {}
+
+if DATABASE_URL.startswith("sqlite"):
+    connect_args = {
+        "check_same_thread": False,
+    }
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,
