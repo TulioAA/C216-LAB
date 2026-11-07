@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
 
-test("adiciona item na lista", async ({
+test("mantem item apos recarregar pagina", async ({
   page,
 }) => {
+  const nome = `Notebook-${Date.now()}`;
+
   await page.goto("/");
 
-  await page.getByLabel("Nome").fill(
-    "Notebook",
-  );
+  await page.getByLabel("Nome").fill(nome);
 
   await page
     .getByLabel("Descrição")
@@ -20,10 +20,16 @@ test("adiciona item na lista", async ({
     .click();
 
   await expect(
-    page.getByText("Notebook"),
+    page.getByRole("heading", {
+      name: nome,
+    }),
   ).toBeVisible();
 
+  await page.reload();
+
   await expect(
-    page.getByText("14 polegadas"),
+    page.getByRole("heading", {
+      name: nome,
+    }),
   ).toBeVisible();
 });

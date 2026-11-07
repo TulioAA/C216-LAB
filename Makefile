@@ -1,12 +1,17 @@
 .PHONY: install test coverage lint format run build up down logs ps help \
 frontend-install frontend-lint frontend-format frontend-build \
-frontend-test frontend-test-e2e check-all
+frontend-test frontend-test-e2e frontend-check \
+check-all e2e
 
-BACKEND := cd backend
+BACKEND := cd Backend
 FRONTEND := cd frontend
 
 POETRY := $(BACKEND) && poetry run
 PYTEST := $(POETRY) pytest
+
+# =====================
+# BACKEND
+# =====================
 
 install:
 	$(BACKEND) && poetry install
@@ -25,6 +30,10 @@ format:
 
 run:
 	$(POETRY) uvicorn app.main:app --reload
+
+# =====================
+# DOCKER
+# =====================
 
 build:
 	docker compose build
@@ -63,6 +72,9 @@ frontend-test:
 frontend-test-e2e:
 	$(FRONTEND) && npm run test:e2e
 
+frontend-check:
+	$(FRONTEND) && npm run lint && npm run test
+
 # =====================
 # CHECK GERAL
 # =====================
@@ -73,6 +85,13 @@ check-all:
 	make frontend-lint
 	make frontend-test
 	make frontend-build
+
+e2e:
+	$(FRONTEND) && npm run test:e2e
+
+# =====================
+# AJUDA
+# =====================
 
 help:
 	@echo "=== BACKEND ==="
@@ -97,6 +116,8 @@ help:
 	@echo "make frontend-build"
 	@echo "make frontend-test"
 	@echo "make frontend-test-e2e"
+	@echo "make frontend-check"
 	@echo ""
 	@echo "=== GERAL ==="
 	@echo "make check-all"
+	@echo "make e2e"

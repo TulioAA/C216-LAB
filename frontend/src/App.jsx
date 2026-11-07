@@ -1,20 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ItemForm } from "./components/ItemForm";
 import { ItemList } from "./components/ItemList";
+import {
+  createItem,
+  listItems,
+} from "./services/items";
 
 export default function App() {
   const [items, setItems] = useState([]);
 
-  function addItem({ name, description }) {
-    setItems((current) => [
-      ...current,
-      {
-        id: crypto.randomUUID(),
-        name,
-        description,
-      },
-    ]);
+  const [loading, setLoading] = useState(true);
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadItems() {
+      try {
+        const data = await listItems();
+
+        setItems(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadItems();
+  }, []);
+
+  async function addItem(values) {
+    try {
+      setError("");
+
+      const newItem = await createItem(values);
+
+      setItems((current) => [
+        ...current,
+        newItem,
+      ]);
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   return (
@@ -23,6 +51,12 @@ export default function App() {
         Gerenciador de Itens
       </h1>
 
+      {error && (
+        <div className="mb-4 rounded border border-red-300 bg-red-50 p-3 text-red-700">
+          {error}
+        </div>
+      )}
+
       <ItemForm onAdd={addItem} />
 
       <section className="mt-6">
@@ -30,7 +64,11 @@ export default function App() {
           Itens cadastrados
         </h2>
 
-        <ItemList items={items} />
+        {loading ? (
+          <p>Carregando...</p>
+        ) : (
+          <ItemList items={items} />
+        )}
       </section>
     </main>
   );
