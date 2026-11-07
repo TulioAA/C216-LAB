@@ -4,14 +4,14 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-COPY pyproject.toml poetry.lock ./
-
+COPY pyproject.toml poetry.lock ./ 
 RUN pip install --no-cache-dir poetry \
     && poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi --no-root
 
-COPY app ./app
+COPY . .
 
 EXPOSE 8000
 
