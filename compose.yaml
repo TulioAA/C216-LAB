@@ -6,3 +6,28 @@ services:
 
     ports:
       - "8000:8000"
+
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/agromanutencao
+
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: agromanutencao
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

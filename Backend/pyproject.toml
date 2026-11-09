@@ -3,17 +3,31 @@ name = "agromanutencao"
 version = "0.1.0"
 description = "Sistema de Controle de Manutenção Agrícola"
 authors = ["Tulio"]
+license = "MIT"
+
+packages = [
+    { include = "app" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.116.1"
+
+fastapi = "^0.116.2"
 uvicorn = "^0.35.0"
-sqlalchemy = "^2.0.43"
-pydantic = "^2.11.7"
+
+sqlalchemy = "^2.1.8"
+pydantic = "^2.14.3"
+
+psycopg = { extras = ["binary"], version = "^3.3.6" }
+
+alembic = "^1.13.1"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.4.1"
+pytest = "^8.4.2"
+httpx = "^0.28.1"
+ruff = "^0.16.2"
+pytest-cov = "^7.1.0"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
