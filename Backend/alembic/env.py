@@ -21,8 +21,7 @@ sys.path.insert(
 
 from app.database.base import Base
 
-from app.models.machine import Maquina
-from app.models.maintenance import Manutencao
+import app.models
 
 config = context.config
 
