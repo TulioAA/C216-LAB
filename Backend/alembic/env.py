@@ -1,3 +1,4 @@
+import os
 import sys
 from os.path import abspath
 from os.path import dirname
@@ -24,6 +25,17 @@ from app.models.machine import Maquina
 from app.models.maintenance import Manutencao
 
 config = context.config
+
+# Permite que o GitHub Actions use DATABASE_URL
+database_url = os.getenv(
+    "DATABASE_URL"
+)
+
+if database_url:
+    config.set_main_option(
+        "sqlalchemy.url",
+        database_url
+    )
 
 if config.config_file_name is not None:
     fileConfig(
