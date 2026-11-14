@@ -1,19 +1,139 @@
-AgroManutenção
-Sistema de Controle de Manutenção de Máquinas Agrícolas desenvolvido para a disciplina C216 - Sistemas Distribuídos.
+# AgroManutenção
 
-Objetivo
-Auxiliar no gerenciamento de máquinas agrícolas, permitindo o cadastro de máquinas e o acompanhamento da necessidade de manutenção com base nas horas trabalhadas.
+Sistema web para gerenciamento de máquinas agrícolas e controle de manutenções preventivas e corretivas.
 
-Funcionalidades Implementadas
-Máquinas
-Cadastro de máquinas agrícolas
-Listagem de máquinas cadastradas
-Identificação automática de manutenção atrasada
-Regra de Negócio
-Uma máquina é considerada com manutenção atrasada quando:
+## Objetivo
 
-horas_trabalhadas >= horas_proxima_manutencao
+O AgroManutenção foi desenvolvido para auxiliar no controle de máquinas agrícolas, registrando informações operacionais e acompanhando manutenções realizadas e futuras.
 
-Nesse caso, o sistema retorna:
+## Tecnologias Utilizadas
 
-manutencao_atrasada = true
+### Backend
+
+- FastAPI
+- SQLAlchemy
+- Alembic
+- PostgreSQL
+- Poetry
+- Pytest
+
+### Frontend
+
+- React
+- Vite
+- Axios
+
+### Infraestrutura
+
+- Docker
+- Docker Compose
+
+### Testes
+
+- Pytest
+- Playwright
+
+---
+
+## Funcionalidades
+
+### Máquinas
+
+- Cadastro de máquinas
+- Listagem de máquinas
+- Edição de máquinas
+- Exclusão de máquinas
+
+### Manutenções
+
+- Cadastro de manutenções
+- Listagem de manutenções
+- Edição de manutenções
+- Exclusão de manutenções
+
+### Controle de manutenção
+
+- Verificação automática de manutenção atrasada
+- Exibição do status da máquina
+
+---
+
+## Executando com Docker
+
+Na raiz do projeto:
+
+```bash
+docker compose up --build
+```
+
+---
+
+## Frontend
+
+Disponível em:
+
+http://localhost:5173
+
+---
+
+## Backend
+
+Disponível em:
+
+http://localhost:8000
+
+---
+
+## Swagger
+
+Documentação da API:
+
+http://localhost:8000/docs
+
+---
+
+## Executar Testes Backend
+
+```bash
+docker compose exec backend pytest -v
+```
+
+---
+
+## Cobertura de Testes
+
+```bash
+docker compose exec backend pytest --cov=app
+```
+
+---
+
+## Testes E2E
+
+Entrar na pasta frontend:
+
+```bash
+cd frontend
+```
+
+Executar:
+
+```bash
+npx playwright test
+```
+
+---
+
+## Banco de Dados
+
+PostgreSQL 16
+
+Banco:
+
+agromanutencao
+
+---
+
+## Autor
+
+Tulio Augusto

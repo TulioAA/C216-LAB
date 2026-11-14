@@ -19,6 +19,16 @@ from app.repositories.machine_repository import (
 )
 
 
+def verificar_manutencao_atrasada(
+    horas_trabalhadas: int,
+    horas_proxima_manutencao: int,
+) -> bool:
+    return (
+        horas_trabalhadas
+        >= horas_proxima_manutencao
+    )
+
+
 def criar_maquina_service(
     banco,
     dados_maquina,
@@ -39,9 +49,12 @@ def listar_maquinas_service(
     resultado = []
 
     for maquina in maquinas:
+
         manutencao_atrasada = (
-            maquina.horas_trabalhadas
-            >= maquina.horas_proxima_manutencao
+            verificar_manutencao_atrasada(
+                maquina.horas_trabalhadas,
+                maquina.horas_proxima_manutencao,
+            )
         )
 
         manutencoes = []
@@ -65,8 +78,12 @@ def listar_maquinas_service(
                 "modelo": maquina.modelo,
                 "ano": maquina.ano,
                 "horas_trabalhadas": maquina.horas_trabalhadas,
-                "horas_proxima_manutencao": maquina.horas_proxima_manutencao,
-                "manutencao_atrasada": manutencao_atrasada,
+                "horas_proxima_manutencao": (
+                    maquina.horas_proxima_manutencao
+                ),
+                "manutencao_atrasada": (
+                    manutencao_atrasada
+                ),
                 "manutencoes": manutencoes,
             }
         )
