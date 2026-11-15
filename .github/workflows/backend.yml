@@ -1,4 +1,4 @@
-name: Backend Tests
+name: backend Tests
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: Backend
+        working-directory: backend
 
     steps:
 

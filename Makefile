@@ -1,11 +1,11 @@
 run:
-	cd Backend && poetry run uvicorn app.main:app --reload
+	cd backend && poetry run uvicorn app.main:app --reload
 
 test:
-	cd Backend && poetry run pytest -v
+	cd backend && poetry run pytest -v
 
 coverage:
-	cd Backend && poetry run pytest --cov=app
+	cd backend && poetry run pytest --cov=app
 
 docker-build:
 	docker compose build
