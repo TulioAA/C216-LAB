@@ -22,3 +22,16 @@ def test_manutencao_no_limite():
         horas_trabalhadas=4000,
         horas_proxima_manutencao=4000,
     ) is True
+
+def test_manutencao_zero_horas():
+    assert verificar_manutencao_atrasada(
+        horas_trabalhadas=0,
+        horas_proxima_manutencao=100,
+    ) is False
+
+
+def test_manutencao_grande():
+    assert verificar_manutencao_atrasada(
+        horas_trabalhadas=10000,
+        horas_proxima_manutencao=100,
+    ) is True
